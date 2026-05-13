@@ -1,0 +1,19 @@
+{
+  "name": "sifflet",
+  "version": "0.1.0",
+  "description": "Sifflet data observability in Cursor: official MCP server wiring and Monitors as Code (Quality as Code) skills, rules, and commands.",
+  "author": {
+    "name": "Sifflet"
+  },
+  "homepage": "https://docs.siffletdata.com/docs/sifflet-mcp-server",
+  "repository": "https://github.com/siffletdata/sifflet",
+  "keywords": [
+    "sifflet",
+    "data-quality",
+    "mcp",
+    "monitors-as-code",
+    "observability",
+    "data-catalog"
+  ],
+  "logo": "assets/logo.svg"
+}

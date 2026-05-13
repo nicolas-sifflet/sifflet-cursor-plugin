@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "sifflet": {
+      "command": "bash",
+      "args": [
+        "${userHome}/.cursor/plugins/local/sifflet/run-sifflet-mcp.sh"
+      ],
+      "env": {
+        "SIFFLET_API_TOKEN": "${SIFFLET_API_TOKEN}",
+        "SIFFLET_BACKEND_URL": "${SIFFLET_BACKEND_URL}"
+      }
+    }
+  }
+}

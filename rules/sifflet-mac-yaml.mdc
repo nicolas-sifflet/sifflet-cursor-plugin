@@ -1,0 +1,19 @@
+---
+description: Conventions for Sifflet Monitors as Code YAML (workspace.yaml and monitor files)
+globs:
+  - "**/workspace.yaml"
+  - "**/monitors/**/*.yaml"
+  - "**/monitors/**/*.yml"
+alwaysApply: false
+---
+
+# Monitors as Code YAML
+
+- Prefer **Monitor v2**: `kind: Monitor` and `version: 2` for new and migrated monitors.
+- Treat the official [Monitor schema](https://docs.siffletdata.com/docs/monitor-schema) as mandatory source-of-truth context for monitor YAML: required fields, `id` vs `friendlyId`, dataset references, incident, notifications, tags, terms, and schedule.
+- Validate workspace structure against [Workspace schema](https://docs.siffletdata.com/docs/workspace-schema); use [parameters per monitor type](https://docs.siffletdata.com/docs/parameters-per-monitor-type) only when editing the `parameters` payload.
+- Keep **one primary monitor per file** unless the team standard explicitly uses multi-document YAML.
+- For `workspace.yaml`, keep `include` / `exclude` globs minimal and reviewable; document any broad glob that could pull in unintended paths.
+- When referencing datasets, prefer **stable identifiers** (`uri`, `id`, or unambiguous datasource-qualified names).
+- Before advising destructive changes (removing files, renaming monitor `id`), remind the user to run `sifflet code workspace plan` and review the plan output.
+- When helping **author** new monitors, follow the **sifflet-quality-as-code** skill: choose **`parameters.kind`**, ask monitor-type-specific questions from [Parameters per monitor type](https://docs.siffletdata.com/docs/parameters-per-monitor-type) when inputs are missing, then draft or call MCP.
