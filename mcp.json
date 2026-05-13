@@ -3,11 +3,12 @@
     "sifflet": {
       "command": "bash",
       "args": [
-        "${userHome}/.cursor/plugins/local/sifflet/run-sifflet-mcp.sh"
+        "-lc",
+        "set -euo pipefail; for name in SIFFLET_API_TOKEN SIFFLET_BACKEND_URL SIFFLET_CONFIG_INI; do value=\"${!name-}\"; if [[ -n \"$value\" && \"$value\" == *'${'* ]]; then unset \"$name\"; fi; done; export PATH=\"$HOME/.local/bin:$HOME/.cargo/bin:${PATH:-}\"; cfg=\"${SIFFLET_CONFIG_INI:-$HOME/.sifflet/config.ini}\"; if [[ (-z \"${SIFFLET_API_TOKEN-}\" || -z \"${SIFFLET_BACKEND_URL-}\") && -f \"$cfg\" ]]; then eval \"$(python3 - \"$cfg\" <<'PY'\nimport configparser, os, shlex, sys\ncp = configparser.ConfigParser(); cp.read(sys.argv[1], encoding='utf-8')\napp = cp['APP'] if 'APP' in cp else {}\ntenant = (app.get('tenant') or '').strip()\nbackend_url = (app.get('backend_url') or '').strip()\ntoken = (app.get('token') or '').strip()\ndef with_scheme(url):\n    return url if url.startswith(('http://', 'https://')) else ('https://' + url.lstrip('/')) if url else ''\nexports = []\nif not os.environ.get('SIFFLET_API_TOKEN') and token:\n    exports.append('export SIFFLET_API_TOKEN=' + shlex.quote(token))\nif not os.environ.get('SIFFLET_BACKEND_URL'):\n    url = with_scheme(backend_url) or (f'https://{tenant}.siffletdata.com/api/' if tenant else '')\n    if url:\n        exports.append('export SIFFLET_BACKEND_URL=' + shlex.quote(url))\nprint('\\n'.join(exports))\nPY\n)\"; fi; exec uvx sifflet-mcp@latest"
       ],
       "env": {
-        "SIFFLET_API_TOKEN": "${SIFFLET_API_TOKEN}",
-        "SIFFLET_BACKEND_URL": "${SIFFLET_BACKEND_URL}"
+        "SIFFLET_API_TOKEN": "${env:SIFFLET_API_TOKEN}",
+        "SIFFLET_BACKEND_URL": "${env:SIFFLET_BACKEND_URL}"
       }
     }
   }
