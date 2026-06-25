@@ -1,6 +1,6 @@
 ---
 name: sifflet-mcp
-description: Use the Sifflet Model Context Protocol server to explore catalog assets, monitors, incidents, and lineage before changing data or YAML. Use when the user needs Sifflet discovery, impact analysis, or monitor metadata in Cursor.
+description: Use the Sifflet Model Context Protocol server to explore catalog assets, monitors, incidents, and lineage before changing data or YAML. Use when the user needs Sifflet discovery, impact analysis, or monitor metadata.
 ---
 
 # Sifflet MCP

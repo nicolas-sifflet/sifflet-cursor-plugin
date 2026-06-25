@@ -85,7 +85,7 @@ quality/
 
 - Keep monitor files small and focused.
 - Use multi-document YAML only if the team explicitly wants it.
-- Keep workspace `include` and `exclude` globs easy to reason about.
+- Keep workspace `include` and `exclude` globs easy to reason about; document any broad glob that could pull in unintended paths.
 
 ### 5) Apply safely
 
