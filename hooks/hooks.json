@@ -1,5 +1,4 @@
 {
-  "description": "Sifflet destructive-action guardrail: require confirmation before apply, monitor-file removal, --auto-approve, or mutating MCP calls.",
   "hooks": {
     "PreToolUse": [
       {
