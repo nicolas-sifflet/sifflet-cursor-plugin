@@ -23,6 +23,7 @@ description: Use the Sifflet Model Context Protocol server to explore catalog as
 - Prefer **discovery tools first** (`search_asset`, `asset_by_urn`) so YAML and proposals use real URNs, owners, and tags.
 - For **`get_monitor_code_by_description`**: always pass at least one **`dataset_ids`** entry from discovery; before calling, run the **monitor-type questionnaire** in the **sifflet-quality-as-code** skill (step 2) so the **`description`** includes thresholds, time columns, SQL, allowed values, etc., when those inputs are required for that **`parameters.kind`**.
 - For monitor authoring, combine MCP results with the **sifflet-quality-as-code** skill and the official schema docs.
+- **Most Sifflet MCP tools are read-only.** `open_incident_by_id` and `close_incident_by_id` are **state-mutating** (closing can also qualify a monitor). Treat them as destructive actions: confirm per the destructive-change confirmation protocol in **sifflet-quality-as-code** (typed token **`CONFIRM SIFFLET MUTATE`**) before calling, and never call them just to explore. Apply the same caution to any future mutating tool.
 - Do not paste secrets into chat or commit them to the repository.
 
 ## Further reading

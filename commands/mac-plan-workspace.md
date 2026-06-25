@@ -26,3 +26,4 @@ description: Run a dry-run plan for a Sifflet Monitors as Code workspace.yaml an
 
 - Workspace-managed monitors become **read-only in the UI**; set expectations with the user.
 - If the user relies on MCP instead of CLI for discovery only, remind them that **plan/apply** still go through the CLI (or their CI) unless they use another approved path.
+- The plan output is the source of truth for what apply will change. Before apply, follow the **destructive-change confirmation protocol** in **sifflet-quality-as-code**: surface the exact deletions/recreations and collect the typed confirmation token. Do not auto-chain plan → apply.
