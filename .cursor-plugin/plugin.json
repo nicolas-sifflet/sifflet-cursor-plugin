@@ -1,6 +1,6 @@
 {
   "name": "sifflet",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Sifflet data observability in Cursor: official MCP server wiring and Monitors as Code (Quality as Code) skills, rules, and commands.",
   "author": {
     "name": "Sifflet"
@@ -15,5 +15,6 @@
     "observability",
     "data-catalog"
   ],
-  "logo": "assets/logo.svg"
+  "logo": "assets/logo.svg",
+  "hooks": "hooks/cursor-hooks.json"
 }

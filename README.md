@@ -82,6 +82,16 @@ The plugin registers the `sifflet` MCP server through `mcp.json`. It starts `run
 - `mac-plan-workspace` - run and review a dry-run plan.
 - `mac-apply-workspace` - apply a reviewed workspace change.
 
+### Safety guardrail
+
+A bundled hook gates destructive or potentially-destructive actions and surfaces a native
+confirmation prompt before they run: `sifflet ... apply`, `--auto-approve`, removing or
+renaming monitor/`workspace.yaml` files, and mutating Sifflet MCP calls (incident
+open/close). The behavioral protocol lives in the `sifflet-quality-as-code` skill. The hook
+ships for both Cursor (`hooks/cursor-hooks.json`) and Claude Code (`hooks/claude-hooks.json`)
+and shares one script (`hooks/guard-sifflet-destructive.py`); it requires `python3` on PATH
+and is configured fail-closed.
+
 ## Monitors as Code
 
 Use MCP for discovery and the Sifflet CLI for workspace changes:

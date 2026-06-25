@@ -1,6 +1,6 @@
 {
   "name": "sifflet",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Sifflet data observability: official MCP server wiring and Monitors as Code (Quality as Code) skills, rules, and commands.",
   "author": {
     "name": "Sifflet"
@@ -14,5 +14,6 @@
     "monitors-as-code",
     "observability",
     "data-catalog"
-  ]
+  ],
+  "hooks": "hooks/claude-hooks.json"
 }

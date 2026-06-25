@@ -1,0 +1,27 @@
+{
+  "description": "Sifflet destructive-action guardrail: require confirmation before apply, monitor-file removal, --auto-approve, or mutating MCP calls.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/guard-sifflet-destructive.py\"",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__sifflet.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/guard-sifflet-destructive.py\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}

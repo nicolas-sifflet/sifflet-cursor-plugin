@@ -96,3 +96,41 @@ quality/
 - For CI/CD, use `sifflet code workspace apply --file workspace.yaml --auto-approve` only after the workspace is reviewed.
 - Mention destructive implications when monitor files are removed or monitor IDs change. Deleting a monitor file, or changing an existing monitor `id`, can delete the previous monitor and associated data.
 - Remind users that workspace-managed monitors become read-only in the UI.
+
+### Destructive-change confirmation protocol
+
+Any destructive or potentially-destructive action requires explicit user confirmation
+before you run it. This is the single source of truth referenced by the commands and the
+bundled guard hook. Treat the hook (which surfaces a native confirmation prompt) as a
+backstop, not a substitute for these steps.
+
+Actions that require confirmation:
+
+- `sifflet code workspace apply` (with or without a prior plan).
+- Any apply whose plan shows **deleted** monitors (removed YAML files) or **recreated**
+  monitors (changed `id`, or changed datasets behind a `friendlyId`).
+- `--auto-approve` / `--yes` / `-y` / `--force` on any `sifflet code` command.
+- Removing or renaming `workspace.yaml` or any file under `monitors/` (including
+  recursive removals such as `rm -rf monitors/`).
+- Mutating Sifflet MCP tools: `open_incident_by_id`, `close_incident_by_id` (and any
+  future `create_* / update_* / delete_* / apply_* / remove_* / qualify_*` tool).
+
+Protocol (every step, in order):
+
+1. **Run plan first.** For apply, run `sifflet code workspace plan --file <workspace>` and
+   show the output. Never apply from a stale plan.
+2. **Name the blast radius.** List every monitor the plan will **delete** and every monitor
+   it will **recreate** (recreation loses history). For large bulk changes, show the grouped
+   counts (`N delete, M recreate, K create`) plus a representative list rather than every name.
+3. **State irreversibility.** Say plainly what cannot be undone (deleted monitors, lost history).
+4. **Require the typed token** (exact, case-sensitive, typed by the user this turn):
+   - Apply / monitor-file removal or rename: **`CONFIRM SIFFLET APPLY`**
+   - When the plan deletes or recreates N monitors, additionally: **`DELETE <N>`** where `<N>`
+     is the exact count of deletions plus recreations.
+   - Mutating MCP tool call: **`CONFIRM SIFFLET MUTATE`**
+   A casual "yes" / "ok" / "go ahead" does **not** satisfy a destructive action.
+5. **Never use `--auto-approve` interactively.** Only suggest it for reviewed CI/CD pipelines,
+   and only after the user explicitly asks for the CI form.
+
+These destructive tokens are reserved for apply/delete/mutate. Monitor *generation* and
+*authoring* confirmations are non-destructive and use plain language, not these tokens.
