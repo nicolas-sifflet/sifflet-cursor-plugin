@@ -1,0 +1,15 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "sifflet-local",
+  "description": "Local marketplace for the Sifflet data observability plugin.",
+  "owner": {
+    "name": "Sifflet"
+  },
+  "plugins": [
+    {
+      "name": "sifflet",
+      "source": "./",
+      "description": "Sifflet data observability: official MCP server wiring and Monitors as Code (Quality as Code) skills, rules, and commands."
+    }
+  ]
+}
